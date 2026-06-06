@@ -2,15 +2,15 @@
 
 ## Objective
 
-Turn this Google AI Edge Gallery fork into **Tiffin**: a private, offline-first,
-proactive phone agent built on the Gallery's on-device AI.
+Turn this Google AI Edge Gallery fork into **Tiffin**, in phases.
 
-## Locked Scope
+## Phases
 
-- Base: fork of Google AI Edge Gallery (Apache-2.0).
-- Reuse: LiteRT LLM, Audio Scribe, Mobile Actions, Agent Skills, MCP.
-- Add: daemon, shake trigger, proactive loop, notifications.
-- First loop: shake -> voice -> on-device LLM -> summary notification.
+- **Phase 0 — Build & run the original app (current).** Get the unmodified Gallery
+  building and running on a device; confirm base features. No Tiffin code yet.
+- **Phase 1 — Plan Tiffin.** Decide what to add; write detailed phase docs.
+- **Phase 2+ — Build the Tiffin layer.** Daemon, shake trigger, proactive loop,
+  notifications — reusing the Gallery's voice + on-device LLM.
 
 ## Source Of Truth
 
@@ -18,8 +18,8 @@ proactive phone agent built on the Gallery's on-device AI.
 - `docs/architecture/core-architecture.md`
 - `docs/product/tiffin-narrative.md`
 - `plans/hackathon-mvp/HANDOFF.md`
+- `plans/hackathon-mvp/phases/`
 
-## Next Step
+## Current Step
 
-Hook the Tiffin daemon + shake trigger into the Gallery Android app and wire the
-MVP loop, reusing Audio Scribe + the on-device LLM.
+Phase 0 — see `plans/hackathon-mvp/phases/PHASE-00_BUILD_AND_RUN_BASE.md`.

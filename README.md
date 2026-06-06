@@ -20,27 +20,33 @@ us the hard parts, on-device and offline:
 - **Agent Skills** + **MCP** — extensible tools
 - **100% on-device privacy**
 
-Tiffin adds the **agent workflow** on top of these:
+Tiffin will add an **agent workflow** on top (daemon, shake-to-wake, a proactive
+loop, notification I/O) — but only after the base app is up and we've planned it.
 
-- an always-on **daemon** (foreground service)
-- a **shake-to-wake** trigger (proactive, never always-listening)
-- a **proactive agent loop** (sense → wake → act → report)
-- **notification-based** status and results
+## Roadmap (phased)
 
-## Current MVP target
+**Phase 0 — Build & run the original app (CURRENT TASK).** Get the *unmodified*
+Gallery building and running on a real device, and confirm its on-device features
+work (LLM/LiteRT, Audio Scribe, Mobile Actions). No Tiffin code yet — just a
+known-good baseline.
 
-The first end-to-end loop (carried over from the Tiffin prototype):
+**Phase 1 — Plan Tiffin.** Once the base runs, decide exactly what Tiffin adds and
+break it into detailed phases.
+
+**Phase 2+ — Build the Tiffin layer** (to be planned in Phase 1): daemon,
+shake-to-wake, proactive loop, notifications — reusing the Gallery's voice +
+on-device LLM. First target loop:
 
     shake  ->  voice in (Audio Scribe)  ->  on-device LLM  ->  summary via notification
 
-…then grow toward acting on the phone using Mobile Actions + Agent Skills.
+See [`plans/hackathon-mvp/`](plans/hackathon-mvp/) for the phase breakdown.
 
 ## Where to start (source of truth)
 
 1. [`AGENTS.md`](AGENTS.md) — how to work in this repo + project identity
 2. [`docs/project/PROJECT_GUIDE.md`](docs/project/PROJECT_GUIDE.md) — durable project map
 3. [`docs/architecture/core-architecture.md`](docs/architecture/core-architecture.md) — how Tiffin sits on the Gallery
-4. [`docs/implementation/hackathon-mvp-plan.md`](docs/implementation/hackathon-mvp-plan.md) — current scope + feature list
+4. [`docs/implementation/hackathon-mvp-plan.md`](docs/implementation/hackathon-mvp-plan.md) — phased scope
 5. [`docs/product/tiffin-narrative.md`](docs/product/tiffin-narrative.md) — the product story
 6. [`plans/hackathon-mvp/HANDOFF.md`](plans/hackathon-mvp/HANDOFF.md) — current work state
 

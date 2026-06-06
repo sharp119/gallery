@@ -1,27 +1,33 @@
 # Master Checklist
 
-## Docs And Scope (this pass)
+## Phase 0 — Build & Run The Original App (current)
 
-- [x] Fork of Google AI Edge Gallery identified as the base.
-- [x] Import + adapt Tiffin docs/scope/workflow from the original first commit.
-- [x] Add AGENTS.md, README (Tiffin), architecture, implementation, narrative.
-- [x] Preserve upstream README + keep `LICENSE`/app intact.
-- [x] Log the "build on the Gallery" decision.
+- [ ] Read upstream `DEVELOPMENT.md`; set up toolchain (Android Studio / JDK / Gradle).
+- [ ] Build the unmodified Gallery app.
+- [ ] Install + run it on a physical Android device.
+- [ ] Confirm: download/run a model (LiteRT).
+- [ ] Confirm: Audio Scribe (voice) works.
+- [ ] Confirm: Mobile Actions works.
+- [ ] Record working toolchain + issues in `phases/PHASE-00_BUILD_AND_RUN_BASE.md`.
 
-## Tiffin Layer (next)
+## Phase 1 — Plan Tiffin (after base runs)
 
-- [ ] Locate hook points in the Gallery Android app.
-- [ ] Add a foreground-service daemon.
-- [ ] Add a shake-to-wake trigger (accelerometer).
-- [ ] Invoke Audio Scribe for on-device voice input.
-- [ ] Invoke the on-device LLM (LiteRT) for the summary.
-- [ ] Post the summary as a notification; show state in the ongoing notification.
-- [ ] Port the reference loop from `sharp119/tiffin@feat/phone-shake-voice-llm`.
+- [ ] List the Tiffin features we want.
+- [ ] Map each to "reuse Gallery capability" vs "new code."
+- [ ] Find hook points in the Gallery `Android/` app.
+- [ ] Write detailed phase docs under `plans/hackathon-mvp/phases/`.
 
-## Demo Proof
+## Phase 2+ — Tiffin Layer (to be planned in Phase 1)
 
-- [ ] Daemon runs with an ongoing notification.
-- [ ] Shake starts/stops a session.
-- [ ] Voice captured on-device.
-- [ ] On-device LLM summary with no internet.
-- [ ] Summary shown as a notification.
+- [ ] Daemon (foreground service).
+- [ ] Shake-to-wake trigger.
+- [ ] Voice in via Audio Scribe.
+- [ ] On-device LLM summary (LiteRT).
+- [ ] Summary + status notifications.
+- [ ] Port reference loop from `sharp119/tiffin@feat/phone-shake-voice-llm`.
+
+## Docs (done)
+
+- [x] Reframe repo as Tiffin built on the Gallery.
+- [x] Phased approach recorded (build first, then plan).
+- [x] Upstream preserved (`LICENSE`, attribution, original README).

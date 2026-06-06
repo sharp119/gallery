@@ -1,5 +1,26 @@
 # Decision Log
 
+## Build & Run The Original App First, Then Plan In Phases
+
+Decision:
+Before writing any Tiffin code, first get the unmodified Google AI Edge Gallery
+app building and running on a device. Only after that, plan the Tiffin additions
+as explicit phases, then build them.
+
+Rationale:
+A known-good baseline de-risks everything. We confirm the toolchain and that the
+Gallery's on-device features (LLM, Audio Scribe, Mobile Actions) actually work on
+our device before changing anything. Planning after the base runs keeps scope honest.
+
+Consequences:
+- Phase 0 = build & run the base (current task).
+- Phase 1 = plan Tiffin in detail (write phase docs).
+- Phase 2+ = build the Tiffin layer.
+
+Follow-up:
+- Record the working build steps + issues in
+  `plans/hackathon-mvp/phases/PHASE-00_BUILD_AND_RUN_BASE.md`.
+
 ## Build Tiffin On Google AI Edge Gallery (not from scratch)
 
 Decision:
@@ -22,10 +43,6 @@ Consequences:
 - This repo becomes "Tiffin, built on the Gallery." Upstream code, `LICENSE`, and
   attribution are kept intact; Tiffin changes are additive.
 - The from-scratch prototype becomes a reference, not the main line.
-
-Follow-up:
-- Wire the Tiffin daemon + shake trigger into the Gallery app and reuse Audio
-  Scribe + the on-device LLM for the MVP loop.
 
 ## Keep Tiffin's Original Scope And Workflow
 

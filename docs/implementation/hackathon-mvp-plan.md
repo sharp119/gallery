@@ -3,58 +3,57 @@
 ## Direction
 
 Build **Tiffin on top of Google AI Edge Gallery**. Do not rebuild the app from
-scratch. Reuse the Gallery's on-device AI; add the Tiffin agent layer.
+scratch. We move in phases:
 
-End-to-end target:
+1. **Get the original Gallery app building and running first** (Phase 0).
+2. **Then plan** exactly what Tiffin adds, in detailed phases (Phase 1).
+3. **Then build the Tiffin layer** (Phase 2+), reusing the Gallery's on-device AI.
+
+Eventual end-to-end target (built only after the base runs and planning is done):
 
     shake  ->  voice in (Audio Scribe)  ->  on-device LLM  ->  summary via notification
 
-## Locked MVP Choices
+## Phase 0 — Build & Run The Original App (current task)
 
-- Base: fork of Google AI Edge Gallery (Apache-2.0).
-- Phone stack: the Gallery's existing Android app (Kotlin).
-- On-device LLM: LiteRT via the Gallery's model management.
-- Voice: the Gallery's **Audio Scribe** (on-device STT).
-- Device control (later): the Gallery's **Mobile Actions** (FunctionGemma 270m).
-- Skills (later): the Gallery's **Agent Skills** + MCP.
-- Tiffin additions: daemon, shake trigger, proactive loop, notifications.
+Goal: a clean, working build of the **unmodified** Gallery on a real device, so we
+have a known-good baseline before adding anything.
 
-## Reuse vs Add
+- Build the app per the upstream `DEVELOPMENT.md`.
+- Install and run it on a physical Android device.
+- Confirm the base on-device features work: model download/run (LiteRT), Audio
+  Scribe (voice), Mobile Actions, Agent Skills.
+- Record the working toolchain (Android Studio / Gradle / JDK) and any fixes.
 
-Reuse from the Gallery (do not rebuild):
-- model download/management, LiteRT inference, Audio Scribe, Mobile Actions,
-  Agent Skills, MCP, on-device privacy.
+Done when: the stock Gallery app runs on-device and its core features work. No
+Tiffin code added yet.
 
-Add for Tiffin:
-- a foreground-service **daemon** that runs in the background
-- a **shake-to-wake** start/stop trigger (accelerometer)
-- a **proactive agent loop** (sense -> wake -> act -> report)
-- **notification** status + summary output
-- (later) optional laptop pairing for heavier local processing
+## Phase 1 — Plan Tiffin (after Phase 0)
 
-## First Workflow (MVP)
+Goal: decide what Tiffin adds and break it into detailed phases.
 
-1. Daemon runs; ongoing notification shows "Idle - shake to start."
-2. Shake -> wake -> invoke Audio Scribe to capture voice.
-3. Send the transcript to the on-device LLM (LiteRT) for a short summary.
-4. Show the summary as a notification (and in-app). Shake again to cancel.
+- List the Tiffin features we want (daemon, shake trigger, proactive loop,
+  notifications; later: laptop pairing, more triggers).
+- Map each to a Gallery capability to reuse vs new code to add.
+- Find the hook points in the Gallery `Android/` app.
+- Write detailed phase docs under `plans/hackathon-mvp/phases/`.
 
-A from-scratch prototype of this exact loop already exists in the separate
-`sharp119/tiffin` repo (branch `feat/phone-shake-voice-llm`) and serves as the
-reference; here we re-implement it by wiring into the Gallery instead.
+Done when: there is an agreed, written phase plan for the Tiffin layer.
 
-## Acceptance Criteria
+## Phase 2+ — Tiffin Layer (to be planned in Phase 1)
 
-- Daemon runs with an ongoing notification.
-- Shake starts/stops a session; state is visible in the notification.
-- Voice is captured on-device (Audio Scribe).
-- The on-device LLM produces a summary with no internet.
-- The summary appears as a notification.
-- Upstream Gallery app, `LICENSE`, and attribution remain intact.
+Skeleton (to be detailed): add a foreground-service daemon, a shake-to-wake
+trigger, a proactive loop, and notification I/O; wire shake -> Audio Scribe ->
+on-device LLM -> summary notification. A from-scratch reference prototype of this
+loop exists in `sharp119/tiffin@feat/phone-shake-voice-llm`.
+
+## Reuse vs Add (guiding rule)
+
+Reuse from the Gallery: model management, LiteRT inference, Audio Scribe, Mobile
+Actions, Agent Skills, MCP, on-device privacy.
+Add for Tiffin (later phases): daemon, shake trigger, proactive loop, notifications.
 
 ## Out Of Scope (for now)
 
 - Rebuilding any capability the Gallery already provides.
 - Cloud anything; production connectors; the full laptop "brain."
-- Acting across arbitrary apps (start with the loop above; expand via Mobile
-  Actions / Agent Skills next).
+- Writing Tiffin feature code before Phase 0 (the base build) is done.
